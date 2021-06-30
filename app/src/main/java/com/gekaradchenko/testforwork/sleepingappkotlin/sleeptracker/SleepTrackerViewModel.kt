@@ -24,7 +24,7 @@ class SleepTrackerViewMode(val database: SleepDatabaseDao, application: Applicat
     private val uiScore = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var toNight = MutableLiveData<SleepNight?>()
-    private val night = database.getAllNights()
+    val night = database.getAllNights()
 
 
     val startButtonVisible = Transformations.map(toNight) {
@@ -130,6 +130,18 @@ class SleepTrackerViewMode(val database: SleepDatabaseDao, application: Applicat
             database.clear()
         }
 
+    }
+
+    private val _navigateToSleepDataQuality = MutableLiveData<Long>()
+    val navigateToSleepDataQuality
+        get() = _navigateToSleepDataQuality
+
+    fun onSleepNightClicked(id: Long) {
+        _navigateToSleepDataQuality.value = id
+    }
+
+    fun onSleepDataQualityNavigated() {
+        _navigateToSleepDataQuality.value = null
     }
 
 

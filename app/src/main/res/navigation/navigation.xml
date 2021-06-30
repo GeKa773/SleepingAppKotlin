@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
             app:destination="@id/sleepQualityFragment" />
+        <action
+            android:id="@+id/action_sleepTrackerFragment_to_sleepDetailFragment"
+            app:destination="@id/sleepDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/sleepQualityFragment"
@@ -23,6 +26,15 @@
             app:destination="@id/sleepTrackerFragment" />
         <argument
             android:name="sleepNightKey"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepDetailFragment"
+        android:name="com.gekaradchenko.testforwork.sleepingappkotlin.sleepdetail.SleepDetailFragment"
+        android:label="fragment_sleep_detail"
+        tools:layout="@layout/fragment_sleep_detail" >
+        <argument
+            android:name="nightId"
             app:argType="long" />
     </fragment>
 </navigation>

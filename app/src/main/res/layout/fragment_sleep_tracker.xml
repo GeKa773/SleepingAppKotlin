@@ -49,11 +49,13 @@
             android:enabled="@{sleepTrackerViewModel.clearButtonVisible}"
             android:onClick="@{() -> sleepTrackerViewModel.onClear()}"
             android:text="clear"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sleep_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -61,16 +63,8 @@
             app:layout_constraintBottom_toTopOf="@+id/clearButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/startButton">
+            app:layout_constraintTop_toBottomOf="@+id/startButton" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@{sleepTrackerViewModel.nightsString}"
-                android:textSize="18sp" />
-        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

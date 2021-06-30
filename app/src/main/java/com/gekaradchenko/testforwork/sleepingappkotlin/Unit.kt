@@ -9,10 +9,11 @@ import com.gekaradchenko.testforwork.sleepingappkotlin.database.SleepNight
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
-  object Unit {
+object Unit {
 
-   fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
+    fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
         val sb = StringBuilder()
         sb.apply {
             append(resources.getString(R.string.title))
@@ -66,4 +67,29 @@ import java.util.*
         }
         return qualityString
     }
+
+
+    private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
+    private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MILLISECONDS)
+    fun convertDurationToFormatted(startMilli: Long, endMilli: Long, res: Resources): String {
+        val durationMilli = endMilli - startMilli
+        val weekString = SimpleDateFormat("EEEE", Locale.getDefault()).format(startMilli)
+        return when {
+            durationMilli < ONE_MINUTE_MILLIS -> {
+                val seconds = TimeUnit.SECONDS.convert(durationMilli, TimeUnit.MILLISECONDS)
+                "${seconds} seconds on ${weekString}"
+            }
+            durationMilli < ONE_HOUR_MILLIS -> {
+                val minutes = TimeUnit.MINUTES.convert(durationMilli, TimeUnit.MILLISECONDS)
+                "${minutes} minutes on ${weekString}"
+
+            }
+            else -> {
+                val hours = TimeUnit.HOURS.convert(durationMilli, TimeUnit.MILLISECONDS)
+                "${hours} hours on ${weekString}"
+            }
+        }
+    }
+
+
 }
